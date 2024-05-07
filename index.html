@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Over 18 Button</title>
+<link rel="icon" href="favicon.png" type="image/x-icon"> <!-- Add this line for the favicon -->
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image: url('npop.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+   #over18-button {
+  width: 100vw; /* Set width to 100vw (viewport width) */
+  height: 150vh; /* Set height to 100vh (viewport height) */
+  background-image: url('livecam.png'); /* Add your button image URL here */
+  background-size: contain; /* Ensure the background image is contained within the button */
+  background-repeat: no-repeat; /* Prevent the background image from repeating */
+  background-position: center; /* Center the background image */
+  color: #fff;
+  font-size: 20px; /* Adjust font size as needed */
+  border: none;
+  border-radius: 0; /* Remove border radius */
+  cursor: pointer;
+  z-index: 1; /* Ensure button stays above the background image */
+  }
+  #image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: none;
+    background-size: cover;
+    background-position: center;
+    margin-top: -20px;
+  }
+</style>
+</head>
+<body>
+<button id="over18-button" onclick="playAudioAndShowImage()"></button>
+<div id="image-container"></div>
+<audio id="over18-audio" src="virussoundeffect.mp3" loop></audio>
+
+<script>
+  // Function to handle the beforeunload event
+  window.addEventListener('beforeunload', function(event) {
+    // Cancel the event as a safeguard
+    event.preventDefault();
+    // Automatically trigger the "Cancel" action
+    event.returnValue = '';
+  });
+
+  function playAudioAndShowImage() {
+    var audio = document.getElementById("over18-audio");
+    audio.play();
+    
+    // Hide the button and show the image
+    document.getElementById("over18-button").style.display = "none";
+    document.getElementById("image-container").style.display = "block";
+    document.getElementById("image-container").style.backgroundImage = "url('npop.png')";
+    
+    // Request full-screen mode
+    var elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+      elem.msRequestFullscreen();
+    }
+    
+    // Event listener for keydown event
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        event.preventDefault(); // Prevent the default behavior (exit full-screen mode)
+      }
+    });
+  }
+
+  document.addEventListener("fullscreenchange", function () {
+    if (!document.fullscreenElement) {
+      // If the user exits full-screen mode using the ESC key, request full-screen mode again
+      var elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) { /* Firefox */
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        elem.msRequestFullscreen();
+      }
+    }
+  });
+
+  document.addEventListener("click", function() {
+    var elem = document.documentElement;
+    if (!document.fullscreenElement) {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) { /* Firefox */
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        elem.msRequestFullscreen();
+      }
+    }
+  });
+</script>
+</body>
+</html>
